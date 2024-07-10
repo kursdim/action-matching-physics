@@ -28,10 +28,10 @@ class AMLoss:
         self.s = s
         self.q_t = q_t
         self.device = device
-        self.Q = Qnet()
-        self.Q.load_state_dict(torch.load("drive/MyDrive/Diploma/Action_matching/Q_function_neg.pt"))
-        self.Q.to(device)
-        self.Q.eval()
+ #       self.Q = Qnet()
+ #       self.Q.load_state_dict(torch.load("drive/MyDrive/Diploma/Action_matching/Q_function_neg.pt"))
+ #       self.Q.to(device)
+ #       self.Q.eval()
 
     def sample_t(self, n):
         u = (self.u0 + np.sqrt(2)*np.arange(n)) % 1
@@ -67,7 +67,7 @@ class AMLoss:
         t_1 = torch.ones([bs, 1], device=self.device)
         x_1, _ = q_t(t_1)
         loss = loss - s(t_1,x_1).squeeze()
-        loss = loss - torch.clamp(self.Q(x_t, dsdx), min=-2000, max=2000)
+ #       loss = loss - torch.clamp(self.Q(x_t, dsdx), min=-2000, max=2000)
         return loss.mean()
 
 
